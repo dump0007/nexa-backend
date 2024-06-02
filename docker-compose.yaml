@@ -1,0 +1,10 @@
+version: "2"
+services:
+  nexa_block_backend:
+    ports:
+      - '0.0.0.0:9000:9000'
+    container_name: nexa_backend
+    restart: always
+    build: ./
+    environment:
+      - NODE_ENV=development
