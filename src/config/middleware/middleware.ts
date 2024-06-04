@@ -37,24 +37,24 @@ export function configure(app: express.Application): void {
         },
         referrerPolicy: { policy: 'same-origin' },
     }));
-    // const allowedDomains = [
-    //     "http://localhost:3000",
-    //     "http://localhost:3001",
-    //     "http://localhost:3002",
-    //     "http://localhost:3003",
-    //     "http://localhost:3004",
-    //     config.origin,
-    //     config.origin2
-    //   ];
+    const allowedDomains = [
+        "http://localhost:3000",
+        "http://localhost:3001",
+        "http://localhost:3002",
+        "http://localhost:3003",
+        "http://localhost:3004",
+        config.origin,
+        config.origin2
+      ];
 
-    // // Define your CORS configuration
-    // const corsOptions = {
-    //     origin: allowedDomains,
-    //     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    //     credentials: true, // Include cookies or authorization headers
-    // };
-    // // providing a Connect/Express middleware that can be used to enable CORS with various options
-    // app.use(cors(corsOptions));
+    // Define your CORS configuration
+    const corsOptions = {
+        origin: allowedDomains,
+        methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+        credentials: true, // Include cookies or authorization headers
+    };
+    // providing a Connect/Express middleware that can be used to enable CORS with various options
+    app.use(cors(corsOptions));
 
     // custom errors
     app.use(sendHttpErrorModule);
