@@ -37,7 +37,7 @@ interface IConfig {
 const NODE_ENV: string = process.env.NODE_ENV || 'development';
 
 const development: IConfig = {
-    port: process.env.PORT || 3000,
+    port: process.env.PORT || 9000,
     database: {
         MONGODB_URI: process.env.MONGODB_URI || 'mongodb://mongoadmin:JyPa9vgwmxYruWJ73i7@172.16.15.228:27017/',
         MONGODB_DB_MAIN: process.env.MONGODB_DB_MAIN || 'users_db',
@@ -69,7 +69,7 @@ const development: IConfig = {
 };
 
 const production: IConfig = {
-    port: process.env.PORT || 3000,
+    port: process.env.PORT || 9000,
     database: {
         MONGODB_URI: process.env.MONGODB_URI || 'mongodb://production_uri/',
         MONGODB_DB_MAIN: process.env.MONGODB_DB_MAIN || 'users_db',
@@ -101,7 +101,7 @@ const production: IConfig = {
 };
 
 const test: IConfig = {
-    port: process.env.PORT || 3000,
+    port: process.env.PORT || 9000,
     database: {
         MONGODB_URI: process.env.MONGODB_URI || 'mongodb://mongoadmin:JyPa9vgwmxYruWJ73i7@172.16.15.228:27017/',
         MONGODB_DB_MAIN: 'test_users_db',

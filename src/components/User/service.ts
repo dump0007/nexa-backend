@@ -83,6 +83,8 @@ const UserService: IUserService = {
       const userData: any = await UserModel.findOne({
         walletAddress: walletAddress.toLowerCase(),
       });
+      console.log(userData);
+      
       if (!userData) {
         return {
           message: RES_MSG.BADREQUEST,

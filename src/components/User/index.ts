@@ -283,7 +283,7 @@ export async function levelBreakdown(req: Request, res: Response): Promise<any> 
       });
     }
     const cal: any = await UserService.levelBreakDownService(validationSchema.value.walletAddress, validationSchema.value.level, validationSchema.value.page, validationSchema.value.limit)
-
+    console.log("cal",cal)
 
     if (cal) {
       return res.status(RESPONSES.SUCCESS).send({

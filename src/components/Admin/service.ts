@@ -54,6 +54,7 @@ const AdminService: IAdminService = {
                     // projection
                   ).sort({ updatedAt: -1 }).skip(limitOffset).limit(initialLimit)
             }
+            console.log(response)
             return {
                 message: RES_MSG.SUCCESS,
                 error: false,
