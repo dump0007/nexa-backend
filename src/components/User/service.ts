@@ -8,6 +8,7 @@ import config from "./../../config/env/index";
 import { PromiseResolve } from "../../utils/common.interface";
 import { ObjectId } from "mongodb";
 import otpModel from "../Admin/otpModel";
+import allTxModel, { IAllTxModel } from '../TransactionHistory/model';
 import levelIncomeModel from "./levelIncome.model";
 
 /**
@@ -83,7 +84,7 @@ const UserService: IUserService = {
       const userData: any = await UserModel.findOne({
         walletAddress: walletAddress.toLowerCase(),
       });
-      console.log(userData);
+      // console.log(userData);
       
       if (!userData) {
         return {
@@ -94,6 +95,32 @@ const UserService: IUserService = {
       }
       const levelData = userData?.level[`lvl${level}`];
       const data = levelData.slice(limitOffset, initialPage * initialLimit);
+      let final:any=[];
+      if(data && data.length>0)
+      {
+        for(let g=0;g<data.length;g++){
+          const xi:any = await allTxModel.find({
+            receiverAddress: data[g].toLowerCase(),
+            event:"Staked"
+          });
+          // console.log("xi",xi)
+          let amt=0;
+          if(xi && xi.length>0){
+            for(let i=0;i<xi.length;i++){
+              // console.log("xi[i]",xi[i])
+              amt = amt+ Number(xi[i].amt)
+              // console.log("amt",amt)
+            }
+          }
+          const obj = {
+            walletAddress: data[g].toLowerCase(),
+            amount:amt
+          }
+          // console.log("obj",obj)
+          await final.push(obj);
+        }
+        
+    }
       // const refereeDataCount = await levelAgmodel.find({ receiver: walletAddress.toLowerCase(),levelNumber : level  }).sort({ createdAt: -1 })
       // const refereeData = await levelAgmodel.aggregate([
       //     {
@@ -137,10 +164,11 @@ const UserService: IUserService = {
       //       },}
       //     // Add more stages as needed for your aggregation
       // ])
+      // console.log("final",final)
       return {
         message: RES_MSG.SUCCESS,
         error: false,
-        data: data,
+        data: final,
         count: levelData.length,
         docCount: data.length,
         status: RESPONSES.SUCCESS,

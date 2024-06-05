@@ -59,6 +59,9 @@ const AllTx: Schema = new Schema(
       type: Number,
       require: true,
     },
+    amt: {
+      type: Number,
+    },
     // userAddress: {
     //     type: String,
     //     require: true,
