@@ -305,7 +305,7 @@ const UserService: IUserService = {
         // if(phoneNumber == "+918550862915"){
         //     personalLink = `https://${config.hostName}/admin/${fetchUser._id}`
         // }else{
-        personalLink = `http://${config.hostName}/dashboard/funds/${fetchUser._id}`;
+        personalLink = `https://${config.hostName}/dashboard/funds/${fetchUser._id}`;
         // }
         userData = await UserModel.findOneAndUpdate(
           { walletAddress: walletAddress },
@@ -314,7 +314,7 @@ const UserService: IUserService = {
         );
       } else {
         let newObjectId = new ObjectId();
-        let personalLink: any = `http://${config.hostName}/dashboard/funds/${newObjectId}`;
+        let personalLink: any = `https://${config.hostName}/dashboard/funds/${newObjectId}`;
         userData = await UserModel.create({
           _id: newObjectId,
           walletAddress: walletAddress.toLowerCase(),
