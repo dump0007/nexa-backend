@@ -49,7 +49,8 @@ export function configure(app: express.Application): void {
 
     // Define your CORS configuration
     const corsOptions = {
-        origin: allowedDomains,
+        // origin: allowedDomains,
+        origin: '*',
         methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
         credentials: true, // Include cookies or authorization headers
     };

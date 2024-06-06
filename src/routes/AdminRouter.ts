@@ -45,6 +45,9 @@ const router: Router = Router();
  */
 router.post('/fetchLockedIncomes', AdminComponent.fetchLockedIncomes);
 
+router.post('/stakePerDayHistory', AdminComponent.stakesPerDay);
+
+
 
 router.post('/sendotp', AdminComponent.sendotp)
 
