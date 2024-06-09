@@ -133,6 +133,67 @@ export async function stakesPerDay(req: Request, res: Response): Promise<any> {
 
 
 
+export async function withdrawsPerDayHistory(req: Request, res: Response): Promise<any> {
+  try {
+    if (!Object.keys(req.body).length) {
+      throw {
+        message: RES_MSG.BADREQUEST,
+        error: true,
+        status: RESPONSES.INVALID_REQ,
+      };
+    }
+
+    const schema = Joi.object({
+      page: Joi.number().required(),
+      limit: Joi.number().required()
+    });
+    const validationSchema: any = await schema.validate(req.body);
+    if (validationSchema.error) {
+      return res.status(RESPONSES.BADREQUEST).send({
+
+        message: validationSchema.error.message,
+        status: RESPONSES.BADREQUEST,
+        error: true,
+      });
+    }
+    
+
+    const history: any = await adminService.withdrawPerDayHistory(
+      validationSchema.value.page,
+      validationSchema.value.limit
+    );
+
+    if (history.data != null) {
+      return res.status(RESPONSES.SUCCESS).send({
+
+        message: RES_MSG.SUCCESS,
+        error: false,
+        data: history.data,
+        count: history.count,
+        docCount: history.docCount,
+        status: RESPONSES.SUCCESS,
+      });
+    } else {
+      return res.status(RESPONSES.BADREQUEST).send({
+
+        message: RES_MSG.REFERRER_DOES_NOT_EXIST,
+        error: true,
+        data: null,
+        status: RESPONSES.BADREQUEST,
+      });
+    }
+  } catch (error) {
+    return res.status(RESPONSES.BADREQUEST).send({
+
+      message: error || RES_MSG.BADREQUEST,
+      status: RESPONSES.BADREQUEST,
+      error: true,
+    });
+  }
+}
+
+
+
 // Function to send OTP to a mobile number
 export async function sendotp(req: Request, res: Response): Promise<any> {
   try{

@@ -47,6 +47,7 @@ router.post('/fetchLockedIncomes', AdminComponent.fetchLockedIncomes);
 
 router.post('/stakePerDayHistory', AdminComponent.stakesPerDay);
 
+router.post('/withdrawPerDayHistory', AdminComponent.withdrawsPerDayHistory);
 
 
 router.post('/sendotp', AdminComponent.sendotp)

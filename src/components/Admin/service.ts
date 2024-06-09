@@ -2,6 +2,7 @@ const twilio = require('twilio')
 import axios from "axios";
 import incomeModel from "./model";
 import stakePerDayModel from "./oneDayStake.model";
+import withdrawPerDayModel from "./oneDayWithdraw.model";
 import { IAdminService } from './interface';
 import { RESPONSES, RES_MSG } from '../../utils/response';
 import otpModel from './otpModel';
@@ -73,7 +74,33 @@ const AdminService: IAdminService = {
             }
         }
     },
+    
+    async withdrawPerDayHistory( page: any, limit: any): Promise<any> {
+        try {
+            let initialPage = page ? page : 1;
+            let initialLimit = limit ? limit : 10;
+            let limitOffset: any = (Number(initialPage) - 1) * Number(initialLimit);
 
+
+            const response = await withdrawPerDayModel.find().sort({ timestamp: -1 }).skip(limitOffset).limit(initialLimit)
+            const count = await withdrawPerDayModel.find()
+
+            return {
+                message: RES_MSG.SUCCESS,
+                error: false,
+                data: response,
+                docCount: count.length,
+                status: RESPONSES.SUCCESS
+            }
+
+        } catch (error) {
+            return {
+                message: error || RES_MSG.BADREQUEST,
+                status: RESPONSES.BADREQUEST,
+                error: true
+            }
+        }
+    },
 
     async stakePerDayHistory( page: any, limit: any): Promise<any> {
         try {
@@ -83,13 +110,14 @@ const AdminService: IAdminService = {
 
 
             const response = await stakePerDayModel.find().sort({ timestamp: -1 }).skip(limitOffset).limit(initialLimit)
+            const count = await stakePerDayModel.find()
 
 
             return {
                 message: RES_MSG.SUCCESS,
                 error: false,
                 data: response,
-                docCount: response.length,
+                docCount: count.length,
                 status: RESPONSES.SUCCESS
             }
 
