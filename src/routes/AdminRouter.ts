@@ -50,6 +50,8 @@ router.post('/stakePerDayHistory', AdminComponent.stakesPerDay);
 router.post('/withdrawPerDayHistory', AdminComponent.withdrawsPerDayHistory);
 
 
+router.post('/claimPerDayHistory', AdminComponent.claimsPerDayHistory);
+
 router.post('/sendotp', AdminComponent.sendotp)
 
 router.post('/verifyOTP', AdminComponent.verifyOtp)
